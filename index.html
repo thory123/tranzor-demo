@@ -1,15 +1,128 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tranzor | Demo Completa</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tranzor | Demo Intercambio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0f1115;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .swap-box {
+      background: #1e2026;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 1rem;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #ccc;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.7rem;
+      border: 2px solid #06d6a0;
+      border-radius: 8px;
+      background: #0f1115;
+      color: white;
+      margin-top: 0.2rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      background: #06d6a0;
+      color: black;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .swap-animation {
+      display: inline-block;
+      margin-left: 0.5rem;
+      width: 16px;
+      height: 16px;
+      border: 2px solid white;
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #06d6a0;
+      color: black;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 9999;
+      display: none;
+    }
+  </style>
 </head>
-<body style="font-family: 'Inter', sans-serif; background:#0f1115; color:white; text-align:center; padding:3rem;">
-  <h1>Demo Final Completa de Tranzor</h1>
-  <p>Este archivo contiene toda la demo funcional con swaps, secciones y efectos visuales.</p>
-  <p>Si puedes ver esto, el sistema ya funciona correctamente. Próximo paso: publicación online.</p>
+<body>
+  <h1>Tranzor Demo Intercambio</h1>
+  <div class="swap-box">
+    <label>Enviar:</label>
+    <select id="from">
+      <option>BTC</option>
+      <option>ETH</option>
+      <option>USDT</option>
+    </select>
+    <label>Recibir:</label>
+    <select id="to">
+      <option>Soles</option>
+      <option>Dólares</option>
+      <option>EUR</option>
+    </select>
+    <label>Cantidad:</label>
+    <input type="number" placeholder="0.01" id="amount"/>
+    <label>Dirección destino o cuenta:</label>
+    <input type="text" placeholder="wallet o cuenta bancaria" id="destination"/>
+    <button onclick="startSwap(this)">Cambiar ahora 🔁</button>
+  </div>
+  <div id="toast" class="toast">✅ Transacción simulada con éxito</div>
+  <audio id="sound" src="https://assets.mixkit.co/sfx/preview/mixkit-space-coin-ping-1308.mp3"></audio>
+  <script>
+    function startSwap(btn) {
+      btn.innerHTML = 'Procesando... <span class="swap-animation"></span>';
+      btn.disabled = true;
+      document.getElementById('sound').play();
+
+      setTimeout(() => {
+        btn.innerHTML = 'Cambiar ahora 🔁';
+        btn.disabled = false;
+        document.getElementById('sound').pause();
+        document.getElementById('sound').currentTime = 0;
+        const toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 2500);
+      }, 2500);
+    }
+  </script>
 </body>
 </html>
