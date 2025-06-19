@@ -1,32 +1,37 @@
-<!DOCTYPE html>
+# Repetir el guardado tras el reinicio para generar el archivo descargable nuevamente
+html_code = """<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tranzor | Demo Intercambio</title>
+  <title>Tranzor | Demo Completa</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       background: #0f1115;
       font-family: 'Inter', sans-serif;
       color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background: #1c1e24;
       text-align: center;
+      padding: 2rem;
     }
     h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      margin: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
     }
     .swap-box {
       background: #1e2026;
       border-radius: 12px;
       padding: 2rem;
-      margin-top: 1rem;
-      max-width: 420px;
-      width: 100%;
+      margin-top: 2rem;
       box-shadow: 0 0 20px rgba(0,0,0,0.3);
     }
     label {
@@ -82,29 +87,73 @@
       z-index: 9999;
       display: none;
     }
+    section {
+      margin-top: 3rem;
+    }
+    section h2 {
+      color: #06d6a0;
+    }
+    section p, ul {
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
-  <h1>Tranzor Demo Intercambio</h1>
-  <div class="swap-box">
-    <label>Enviar:</label>
-    <select id="from">
-      <option>BTC</option>
-      <option>ETH</option>
-      <option>USDT</option>
-    </select>
-    <label>Recibir:</label>
-    <select id="to">
-      <option>Soles</option>
-      <option>Dólares</option>
-      <option>EUR</option>
-    </select>
-    <label>Cantidad:</label>
-    <input type="number" placeholder="0.01" id="amount"/>
-    <label>Dirección destino o cuenta:</label>
-    <input type="text" placeholder="wallet o cuenta bancaria" id="destination"/>
-    <button onclick="startSwap(this)">Cambiar ahora 🔁</button>
+  <header>
+    <h1>Tranzor</h1>
+    <p>Tu pasarela de intercambio cripto ↔ fiat simple y segura</p>
+  </header>
+  <div class="container">
+    <div class="swap-box">
+      <label>Enviar:</label>
+      <select id="from">
+        <option>BTC</option>
+        <option>ETH</option>
+        <option>USDT</option>
+      </select>
+      <label>Recibir:</label>
+      <select id="to">
+        <option>Soles</option>
+        <option>Dólares</option>
+        <option>EUR</option>
+      </select>
+      <label>Cantidad:</label>
+      <input type="number" placeholder="0.01" id="amount"/>
+      <label>Dirección destino o cuenta:</label>
+      <input type="text" placeholder="wallet o cuenta bancaria" id="destination"/>
+      <button onclick="startSwap(this)">Cambiar ahora 🔁</button>
+    </div>
+
+    <section>
+      <h2>¿Qué es Tranzor?</h2>
+      <p>Tranzor es una plataforma simple y segura que te permite intercambiar criptomonedas por dinero fiat directamente a tu cuenta o tarjeta.</p>
+    </section>
+
+    <section>
+      <h2>Beneficios</h2>
+      <ul>
+        <li>✅ Sin KYC hasta cierto monto</li>
+        <li>⚡ Swaps rápidos</li>
+        <li>🔐 Seguridad y reputación</li>
+        <li>🌍 Acceso desde LATAM</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>¿Cómo funciona?</h2>
+      <ol>
+        <li>Selecciona el tipo de intercambio</li>
+        <li>Introduce la cantidad y la cuenta</li>
+        <li>Envía cripto desde tu wallet</li>
+        <li>Recibe fiat en tu cuenta</li>
+      </ol>
+    </section>
   </div>
+
+  <footer>
+    &copy; 2025 Tranzor | Desarrollado por Richard Chamberth
+  </footer>
+
   <div id="toast" class="toast">✅ Transacción simulada con éxito</div>
   <audio id="sound" src="https://assets.mixkit.co/sfx/preview/mixkit-space-coin-ping-1308.mp3"></audio>
   <script>
@@ -112,7 +161,6 @@
       btn.innerHTML = 'Procesando... <span class="swap-animation"></span>';
       btn.disabled = true;
       document.getElementById('sound').play();
-
       setTimeout(() => {
         btn.innerHTML = 'Cambiar ahora 🔁';
         btn.disabled = false;
@@ -126,3 +174,11 @@
   </script>
 </body>
 </html>
+"""
+
+# Guardar archivo
+file_path = "/mnt/data/tranzor_web_completa.html"
+with open(file_path, "w", encoding="utf-8") as f:
+    f.write(html_code)
+
+file_path
